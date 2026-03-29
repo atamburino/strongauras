@@ -1,0 +1,12 @@
+## Interface: 110100
+## Title: StrongAuras
+## Notes: Visual spell tracker and aura designer for class cooldowns and buffs
+## Author: StrongAuras
+## Version: 0.1.0
+## SavedVariables: StrongAurasDB
+
+Core.lua
+Aura.lua
+Triggers.lua
+Display.lua
+Config.lua
