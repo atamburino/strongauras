@@ -47,7 +47,7 @@ function SA:OnLoad()
         end
     end
     self.db = StrongAurasDB
-    print("|cff00ffffStrongAuras|r loaded. Type |cffffd700/sa|r to open the designer.")
+    print("|cff00ffffStrongAuras|r loaded. Type |cffffd700/sauras|r to open the designer.")
 end
 
 function SA:SaveDB()
@@ -56,7 +56,7 @@ end
 
 -- ─── Slash command ───────────────────────────────────────────────────────────
 
-SLASH_STRONGAURAS1 = "/sa"
+SLASH_STRONGAURAS1 = "/sauras"
 SLASH_STRONGAURAS2 = "/strongauras"
 
 SlashCmdList["STRONGAURAS"] = function(msg)
@@ -68,7 +68,7 @@ SlashCmdList["STRONGAURAS"] = function(msg)
         print("|cff00ffffStrongAuras|r: Aura positions reset.")
     else
         print("|cff00ffffStrongAuras|r commands:")
-        print("  /sa         - Open designer")
-        print("  /sa reset   - Reset all aura positions")
+        print("  /sauras         - Open designer")
+        print("  /sauras reset   - Reset all aura positions")
     end
 end
