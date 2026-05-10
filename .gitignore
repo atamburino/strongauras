@@ -1,0 +1,31 @@
+# Xcode
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+DerivedData/
+*.moved-aside
+*.xccheckout
+*.xcscmblueprint
+build/
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# macOS
+.DS_Store
+*.swp
+*.lock
+
+# CocoaPods (not used, but just in case)
+Pods/
+
+# Crashlytics / Fabric
+Crashlytics/
+Fabric/
+
+# Lode local data (never commit user data)
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+audit.log

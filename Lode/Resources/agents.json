@@ -1,0 +1,25 @@
+{
+  "agents": [
+    {
+      "name": "Claude Code",
+      "process_name": "claude",
+      "match_type": "name"
+    },
+    {
+      "name": "Codex CLI",
+      "process_name": "codex",
+      "match_type": "name"
+    },
+    {
+      "name": "GitHub CLI",
+      "process_name": "gh",
+      "match_type": "name"
+    },
+    {
+      "name": "VS Code Copilot",
+      "process_name": "node",
+      "match_type": "path",
+      "path_contains": ".vscode/extensions/github.copilot"
+    }
+  ]
+}
