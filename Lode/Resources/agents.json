@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Claude Code",
+    "processName": "claude",
+    "pathPattern": null
+  },
+  {
+    "name": "Codex CLI",
+    "processName": "codex",
+    "pathPattern": null
+  },
+  {
+    "name": "GitHub CLI",
+    "processName": "gh",
+    "pathPattern": null
+  },
+  {
+    "name": "VS Code Copilot",
+    "processName": "node",
+    "pathPattern": ".vscode/extensions/github.copilot"
+  }
+]
