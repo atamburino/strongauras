@@ -1,17 +1,18 @@
 import Foundation
 
-struct ClipboardEntry: Identifiable, Codable {
+struct ClipboardEntry: Identifiable {
     let id: UUID
-    let content: String
-    let sourceApp: String?
-    let timestamp: Date
-    let type: EntryType
-    var isPinned: Bool
-    var isRedacted: Bool
+    let contentType: ContentType
+    let contentBlob: Data
+    let previewText: String
+    let capturedAt: Date
+    let sourceAppBundleId: String?
 
-    enum EntryType: String, Codable {
-        case code, url, email, path, color, plain
+    enum ContentType: String {
+        case plainText = "text/plain"
+        case richText  = "text/rtf"
+        case image     = "image/png"
     }
 
-    static let redactedContent = "[REDACTED - possible secret]"
+    var isImage: Bool { contentType == .image }
 }

@@ -9,10 +9,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
 
-        clipboardMonitor = ClipboardMonitor()
-        agentMonitor = AgentMonitor()
+        AgentMonitor.writeDefaultAgentsFileIfNeeded()
 
-        notchPanel = NotchPanel()
+        clipboardMonitor = ClipboardMonitor()
+        agentMonitor     = AgentMonitor()
+
+        notchPanel = NotchPanel(agentMonitor: agentMonitor!)
         notchPanel?.show()
 
         clipboardMonitor?.start()
@@ -27,6 +29,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func setupGlobalShortcut() {
-        // TODO: register global hotkey (default: Option+Space or configurable)
+        // TODO: register global hotkey via Carbon EventHotKey API.
+        // Default trigger: Option+Space (user-configurable in Phase 2 settings panel).
+        // On trigger: post Notification named "LodeTogglePanel".
     }
 }

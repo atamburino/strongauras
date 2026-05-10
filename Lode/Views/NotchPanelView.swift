@@ -1,54 +1,54 @@
 import SwiftUI
 
 struct NotchPanelView: View {
+    @ObservedObject var agentMonitor: AgentMonitor
     @State private var isExpanded = false
-    @StateObject private var agentMonitor = AgentMonitor()
 
     var body: some View {
         VStack(spacing: 0) {
-            // Collapsed notch pill — always visible
             NotchPillView(isExpanded: $isExpanded, agents: agentMonitor.statuses)
 
             if isExpanded {
-                NotchDrawerView()
+                NotchDrawerView(isExpanded: $isExpanded)
                     .transition(.move(edge: .top).combined(with: .opacity))
             }
         }
-        .animation(.spring(response: 0.3, dampingFraction: 0.8), value: isExpanded)
+        // ~180ms ease-out per PRD §4.1
+        .animation(.easeOut(duration: 0.18), value: isExpanded)
+        .onReceive(NotificationCenter.default.publisher(for: .lodeTogglePanel)) { _ in
+            isExpanded.toggle()
+        }
     }
 }
 
-// The always-visible collapsed state
 struct NotchPillView: View {
     @Binding var isExpanded: Bool
     let agents: [AgentStatus]
 
     var body: some View {
-        HStack(spacing: 6) {
-            ForEach(agents) { agent in
-                AgentDotView(status: agent)
-            }
-            if agents.isEmpty {
-                Circle()
-                    .fill(Color.gray.opacity(0.3))
-                    .frame(width: 8, height: 8)
-            }
+        HStack(spacing: 5) {
+            Spacer()
+            AgentDotsCluster(agents: agents)
         }
-        .padding(.horizontal, 12)
+        .padding(.trailing, 12)
         .frame(height: 32)
         .contentShape(Rectangle())
         .onTapGesture { isExpanded.toggle() }
     }
 }
 
-// Expanded drawer
 struct NotchDrawerView: View {
+    @Binding var isExpanded: Bool
+
     var body: some View {
-        VStack(spacing: 0) {
-            ClipboardListView()
-        }
-        .frame(width: 320, height: 480)
-        .background(.regularMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 16))
+        ClipboardListView(isExpanded: $isExpanded)
+            .frame(width: 320, height: 480)
+            .background(.regularMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .shadow(color: .black.opacity(0.3), radius: 20, y: 8)
     }
+}
+
+extension Notification.Name {
+    static let lodeTogglePanel = Notification.Name("LodeTogglePanel")
 }

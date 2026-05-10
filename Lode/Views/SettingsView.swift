@@ -1,9 +1,13 @@
 import SwiftUI
+import ServiceManagement
 
 struct SettingsView: View {
     @AppStorage("historyDepth") private var historyDepth = 50
-    @AppStorage("enableRedaction") private var enableRedaction = true
     @AppStorage("launchAtLogin") private var launchAtLogin = false
+
+    // Phase 2 stubs — stored now, UI exposed later
+    @AppStorage("enableSoundNotifications") private var enableSoundNotifications = false
+    @AppStorage("enableRedaction") private var enableRedaction = true
 
     private let depthOptions = [10, 50, 100, 200]
 
@@ -16,18 +20,9 @@ struct SettingsView: View {
                     }
                 }
 
-                Toggle("Redact secrets", isOn: $enableRedaction)
-
                 Button("Clear clipboard history", role: .destructive) {
                     DatabaseManager.shared.clearAll()
                 }
-            }
-
-            Section("General") {
-                Toggle("Launch at login", isOn: $launchAtLogin)
-                    .onChange(of: launchAtLogin) { _, enabled in
-                        // TODO: register/deregister SMAppService login item
-                    }
 
                 Button("Open data folder") {
                     let url = FileManager.default
@@ -36,9 +31,22 @@ struct SettingsView: View {
                     NSWorkspace.shared.open(url)
                 }
             }
+
+            Section("General") {
+                Toggle("Launch at login", isOn: $launchAtLogin)
+                    .onChange(of: launchAtLogin) { _, enabled in
+                        // SMAppService requires macOS 13+; target is 14+ so this is safe
+                        let service = SMAppService.mainApp
+                        try? enabled ? service.register() : service.unregister()
+                    }
+            }
+
+            // Phase 2 — settings model stubbed here, UI withheld
+            // Section("Notifications") { ... }
+            // Section("Sensitive content") { ... }
         }
         .formStyle(.grouped)
-        .frame(width: 360)
+        .frame(width: 380)
         .padding()
     }
 }

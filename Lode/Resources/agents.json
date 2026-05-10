@@ -1,22 +1,25 @@
-[
-  {
-    "name": "Claude Code",
-    "processName": "claude",
-    "pathPattern": null
-  },
-  {
-    "name": "Codex CLI",
-    "processName": "codex",
-    "pathPattern": null
-  },
-  {
-    "name": "GitHub CLI",
-    "processName": "gh",
-    "pathPattern": null
-  },
-  {
-    "name": "VS Code Copilot",
-    "processName": "node",
-    "pathPattern": ".vscode/extensions/github.copilot"
-  }
-]
+{
+  "agents": [
+    {
+      "name": "Claude Code",
+      "process_name": "claude",
+      "match_type": "name"
+    },
+    {
+      "name": "Codex CLI",
+      "process_name": "codex",
+      "match_type": "name"
+    },
+    {
+      "name": "GitHub CLI",
+      "process_name": "gh",
+      "match_type": "name"
+    },
+    {
+      "name": "VS Code Copilot",
+      "process_name": "node",
+      "match_type": "path",
+      "path_contains": ".vscode/extensions/github.copilot"
+    }
+  ]
+}

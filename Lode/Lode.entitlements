@@ -2,10 +2,23 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <!-- No network entitlements — intentional -->
-    <key>com.apple.security.app-sandbox</key>
+    <!--
+        PRD §5 — Privacy & Security Architecture
+        Verifiable: codesign -d \-\-entitlements - Lode.app
+    -->
+
+    <!-- Network entitlements explicitly false — Lode makes zero network calls -->
+    <key>com.apple.security.network.client</key>
     <false/>
-    <key>com.apple.security.automation.apple-events</key>
+    <key>com.apple.security.network.server</key>
+    <false/>
+
+    <!--
+        Sandboxing disabled for v1: process monitoring (proc_listallpids, proc_pidpath)
+        and clipboard capture (NSPasteboard) are not compatible with the app sandbox.
+        Re-evaluate for App Store post-v1.
+    -->
+    <key>com.apple.security.app-sandbox</key>
     <false/>
 </dict>
 </plist>
